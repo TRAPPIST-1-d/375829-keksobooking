@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Спиридонов](https://up.htmlacademy.ru/javascript/9/user/375829).
-* Наставник: `Неизвестно`.
+* Наставник: [Виталий Яковенко](https://up.htmlacademy.ru/javascript/9/user/376639).
 
 ---
 

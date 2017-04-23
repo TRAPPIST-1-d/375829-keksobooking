@@ -45,7 +45,7 @@ function getArrObjectOfferFeatures() {
   var lenghtArrObjectOfferFeatures = getRandomMinMax(0, arrAllOfferFeatures.length);
   var elementToAdd;
   while (arrObjectOfferFeatures.length < lenghtArrObjectOfferFeatures) {
-    elementToAdd = arrAllOfferFeatures[getRandomMinMax(0, arrAllOfferFeatures.length)];
+    elementToAdd = arrAllOfferFeatures[getRandomMinMax(0, (arrAllOfferFeatures.length - 1))];
     if (elementAlreadyInArray(arrObjectOfferFeatures, elementToAdd) !== true) {
       arrObjectOfferFeatures[arrObjectOfferFeatures.length] = elementToAdd;
     }
@@ -53,6 +53,8 @@ function getArrObjectOfferFeatures() {
   return arrObjectOfferFeatures;
 }
 function getAdvertObject() {
+  var randomLocationX = getRandomMinMax(300, 900);
+  var randomLocationY = getRandomMinMax(100, 500);
   var AdvertObject;
   AdvertObject = {
     author: {
@@ -60,20 +62,20 @@ function getAdvertObject() {
     },
     offer: {
       title: arrOfferTitle[arrAdvertObjects.length],
-      address: '{{' + location.x + '}}, {{' + location.y + '}}',
+      address: '{{' + randomLocationX + '}}, {{' + randomLocationY + '}}',
       price: getRandomMinMax(1000, 1000000),
-      type: arrOfferType[getRandomMinMax(0, arrOfferType.length)],
+      type: arrOfferType[getRandomMinMax(0, (arrOfferType.length - 1))],
       rooms: getRandomMinMax(1, 5),
       guests: getRandomMinMax(1, 15000),
-      checkin: arrOfferCheckInOut[getRandomMinMax(0, arrOfferCheckInOut.length)],
-      checkout: arrOfferCheckInOut[getRandomMinMax(0, arrOfferCheckInOut.length)],
+      checkin: arrOfferCheckInOut[getRandomMinMax(0, (arrOfferCheckInOut.length - 1))],
+      checkout: arrOfferCheckInOut[getRandomMinMax(0, (arrOfferCheckInOut.length - 1))],
       features: getArrObjectOfferFeatures(),
       description: '',
       photos: []
     },
     location: {
-      x: getRandomMinMax(300, 900),
-      y: getRandomMinMax(100, 500)
+      x: randomLocationX,
+      y: randomLocationY
     }
   };
   return AdvertObject;

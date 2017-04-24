@@ -58,7 +58,7 @@ function getAdvertObject() {
   var AdvertObject;
   AdvertObject = {
     author: {
-      avatar: 'img/avatars/user{{0' + (arrAdvertObjects.length + 1) + '}}.png'
+      avatar: 'img/avatars/user0' + (arrAdvertObjects.length + 1) + '.png'
     },
     offer: {
       title: arrOfferTitle[arrAdvertObjects.length],
@@ -83,3 +83,25 @@ function getAdvertObject() {
 while (arrAdvertObjects.length < 8) {
   arrAdvertObjects[arrAdvertObjects.length] = getAdvertObject();
 }
+function getMarkerDOMElement(orderInArr) {
+  var markerDOMElement = document.createElement('div');
+  markerDOMElement.setAttribute('class', 'pin');
+  markerDOMElement.setAttribute('style', 'left: ' + arrAdvertObjects[orderInArr].location.x + 'px; top: ' + (arrAdvertObjects[orderInArr].location.y) + 'px');
+  var image = document.createElement('img');
+  image.setAttribute('src', arrAdvertObjects[orderInArr].author.avatar);
+  image.setAttribute('class', 'rounded');
+  image.setAttribute('width', '40');
+  image.setAttribute('height', '40');
+  markerDOMElement.appendChild(image);
+  return markerDOMElement;
+}
+var fragmentMarkersDOMElems = document.createDocumentFragment();
+for (var a2 = 0; a2 < arrAdvertObjects.length; a2++) {
+  fragmentMarkersDOMElems.appendChild(getMarkerDOMElement(a2));
+}
+document.querySelector('.tokyo__pin-map').appendChild(fragmentMarkersDOMElems);
+//var lodgeTemplate = document.querySelector('#lodge-template');
+//lodgeTemplate.querySelector('.lodge__title').textContent = arrAdvertObjects[0].offer.title;
+//lodgeTemplate.querySelector('lodge__address').textContent = arrAdvertObjects[0].offer.address;
+//lodgeTemplate.querySelector('lodge__price').textContent = arrAdvertObjects[0].offer.price + '&#x20bd;/ночь';
+//lodgeTemplate.querySelector('lodge__type').textContent =

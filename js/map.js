@@ -122,7 +122,7 @@ var fragmentSpansWithFetures = document.createDocumentFragment();
 var dialogPanel = document.getElementById('offer-dialog').querySelector('.dialog__panel');
 
 for (var a2 = 0; arrAdverts.length < 8; a2++) {
-  arrAdverts[arrAdverts.length] = getAdvert();
+  arrAdverts.push(getAdvert());
 }
 
 for (var a3 = 0; a3 < arrAdverts.length; a3++) {

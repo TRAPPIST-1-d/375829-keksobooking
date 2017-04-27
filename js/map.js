@@ -102,7 +102,7 @@ function getSpanWithFeature(orderInFeatureArr) {
 
 function getMarker(orderInArr) {
   var markerDOMElement = document.createElement('div');
-  var location = 'left: ' + arrAdverts[orderInArr].location.x + 'px; top: ' + (arrAdverts[orderInArr].location.y) + 'px';
+  var location = 'left: ' + (arrAdverts[orderInArr].location.x - 28) + 'px; top: ' + (arrAdverts[orderInArr].location.y - 75) + 'px';
   markerDOMElement.setAttribute('class', 'pin');
   markerDOMElement.setAttribute('style', location);
   var image = document.createElement('img');

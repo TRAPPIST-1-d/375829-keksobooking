@@ -119,6 +119,7 @@ var fragmentMarkers = document.createDocumentFragment();
 var lodgeTemplate = document.querySelector('#lodge-template').content;
 var fragmentSpansWithFetures = document.createDocumentFragment();
 var dialogPanel = document.getElementById('offer-dialog').querySelector('.dialog__panel');
+var tokioMap = document.querySelector('.tokyo__pin-map');
 
 for (var a2 = 0; arrAdverts.length < 8; a2++) {
   arrAdverts.push(getAdvert());
@@ -127,7 +128,7 @@ for (var a2 = 0; arrAdverts.length < 8; a2++) {
 for (var a3 = 0; a3 < arrAdverts.length; a3++) {
   fragmentMarkers.appendChild(getMarker(a3));
 }
-document.querySelector('.tokyo__pin-map').appendChild(fragmentMarkers);
+tokioMap.appendChild(fragmentMarkers);
 
 for (var a4 = 0; a4 < arrAdverts[0].offer.features.length; a4++) {
   fragmentSpansWithFetures.appendChild(getSpanWithFeature(a4));
@@ -147,4 +148,38 @@ lodgeTemplate.querySelector('.lodge__description').textContent = arrAdverts[0].o
 document.getElementById('offer-dialog').replaceChild(lodgeTemplate, dialogPanel);
 document.querySelector('.dialog__title').firstChild.src = arrAdverts[0].author.avatar;
 
-var pinList = document.querySelectorAll('.pin')
+var pinList = document.querySelectorAll('.pin');
+var dialog = document.getElementById('offer-dialog');
+var dialogClose = document.querySelector('.dialog__close');
+
+/* pinList.addEventListener('click', /* функция которая в Пинах ищет pin--active
+и если есть убирает. затем добавляет pin--active на тот по которому кликнули
+*/
+
+function showDialod() {
+  deactivatePin(pinList);
+
+}
+/*
+function deactivatePin() {
+  var activated = dialog.querySelector('.pin--active');
+  activated.classList.remove('pin--active');
+}
+ */
+tokioMap.addEventListener('click', function () {  // баг! может добавлять pin--active к самой карте, не только к пинам
+  var thatPin = event.target;
+  var activated = tokioMap.querySelector('.pin--active');
+  if (activated !== null) {
+    activated.classList.remove('pin--active');
+  }
+  thatPin.parentElement.classList.add('pin--active');
+  dialog.style.display = 'block';
+});
+
+
+dialogClose.addEventListener('click', function () {
+  dialog.style.display = 'none'; // block покажет
+  var activated = tokioMap.querySelector('.pin--active');
+  activated.classList.remove('pin--active');
+});
+

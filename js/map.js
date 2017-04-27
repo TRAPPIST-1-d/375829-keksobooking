@@ -1,5 +1,34 @@
 'use strict';
 
+var OFFER_TITLE_LIST = [
+  'Большая уютная квартира',
+  'Маленькая неуютная квартира',
+  'Огромный прекрасный дворец',
+  'Маленький ужасный дворец',
+  'Красивый гостевой домик',
+  'Некрасивый негостеприимный домик',
+  'Уютное бунгало далеко от моря',
+  'Неуютное бунгало по колено в воде'
+];
+var OFFER_TYPE_LIST = [
+  'flat',
+  'house',
+  'bungalo'
+];
+var CHECK_IN_OUT_TIMES = [
+  '12:00',
+  '13:00',
+  '14:00'
+];
+var FEATURES_LIST = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner'
+];
+
 function getRandomMinMax(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -35,7 +64,7 @@ function getAdvert() {
     },
     offer: {
       title: OFFER_TITLE_LIST[arrAdverts.length],
-      address: '{{' + randomLocationX + '}}, {{' + randomLocationY + '}}',
+      address: randomLocationX + ', ' + randomLocationY,
       price: getRandomMinMax(1000, 1000000),
       type: OFFER_TYPE_LIST[getRandomMinMax(0, (OFFER_TYPE_LIST.length - 1))],
       rooms: getRandomMinMax(1, 5),
@@ -54,14 +83,13 @@ function getAdvert() {
 }
 
 function getRusLodgeType(lodgeType) {
-  if (lodgeType === 'flat') {
-    lodgeType = 'Квартира';
-  }
-  if (lodgeType === 'bungalo') {
-    lodgeType = 'Бунгало';
-  }
-  if (lodgeType === 'house') {
-    lodgeType = 'Дом';
+  switch (lodgeType) {
+    case 'flat':
+      return 'Квартира';
+    case 'bungalo':
+      return 'Бунгало';
+    case 'house':
+      return 'Дом';
   }
   return lodgeType;
 }
@@ -85,35 +113,6 @@ function getMarker(orderInArr) {
   markerDOMElement.appendChild(image);
   return markerDOMElement;
 }
-
-var OFFER_TITLE_LIST = [
-  'Большая уютная квартира',
-  'Маленькая неуютная квартира',
-  'Огромный прекрасный дворец',
-  'Маленький ужасный дворец',
-  'Красивый гостевой домик',
-  'Некрасивый негостеприимный домик',
-  'Уютное бунгало далеко от моря',
-  'Неуютное бунгало по колено в воде'
-];
-var OFFER_TYPE_LIST = [
-  'flat',
-  'house',
-  'bungalo'
-];
-var CHECK_IN_OUT_TIMES = [
-  '12:00',
-  '13:00',
-  '14:00'
-];
-var FEATURES_LIST = [
-  'wifi',
-  'dishwasher',
-  'parking',
-  'washer',
-  'elevator',
-  'conditioner'
-];
 
 var arrAdverts = [];
 var fragmentMarkers = document.createDocumentFragment();
@@ -139,7 +138,7 @@ var checkinTime = 'Заезд после ' + arrAdverts[0].offer.checkin + ', в
 
 lodgeTemplate.querySelector('.lodge__title').textContent = arrAdverts[0].offer.title;
 lodgeTemplate.querySelector('.lodge__address').textContent = arrAdverts[0].offer.address;
-lodgeTemplate.querySelector('.lodge__price').textContent = '{{' + arrAdverts[0].offer.price + '}}&#x20bd;/ночь';
+lodgeTemplate.querySelector('.lodge__price').innerHTML = arrAdverts[0].offer.price + '&#x20bd;/ночь';
 lodgeTemplate.querySelector('.lodge__type').textContent = getRusLodgeType(arrAdverts[0].offer.type);
 lodgeTemplate.querySelector('.lodge__rooms-and-guests').textContent = roomsAndGuests;
 lodgeTemplate.querySelector('.lodge__checkin-time').textContent = checkinTime;

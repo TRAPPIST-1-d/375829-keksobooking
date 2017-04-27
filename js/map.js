@@ -138,7 +138,7 @@ var checkinTime = 'Заезд после ' + arrAdverts[0].offer.checkin + ', в
 
 lodgeTemplate.querySelector('.lodge__title').textContent = arrAdverts[0].offer.title;
 lodgeTemplate.querySelector('.lodge__address').textContent = arrAdverts[0].offer.address;
-lodgeTemplate.querySelector('.lodge__price').innerHTML = arrAdverts[0].offer.price + '&#x20bd;/ночь';
+lodgeTemplate.querySelector('.lodge__price').innerHTML = arrAdverts[0].offer.price + ' &#x20bd;/ночь';
 lodgeTemplate.querySelector('.lodge__type').textContent = getRusLodgeType(arrAdverts[0].offer.type);
 lodgeTemplate.querySelector('.lodge__rooms-and-guests').textContent = roomsAndGuests;
 lodgeTemplate.querySelector('.lodge__checkin-time').textContent = checkinTime;

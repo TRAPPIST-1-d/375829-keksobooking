@@ -146,3 +146,5 @@ lodgeTemplate.querySelector('.lodge__features').appendChild(fragmentSpansWithFet
 lodgeTemplate.querySelector('.lodge__description').textContent = arrAdverts[0].offer.description;
 document.getElementById('offer-dialog').replaceChild(lodgeTemplate, dialogPanel);
 document.querySelector('.dialog__title').firstChild.src = arrAdverts[0].author.avatar;
+
+var pinList = document.querySelectorAll('.pin')

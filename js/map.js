@@ -137,7 +137,7 @@ for (var a4 = 0; a4 < arrAdverts[0].offer.features.length; a4++) {
 var roomsAndGuests = 'Для ' + arrAdverts[0].offer.guests + ' гостей в ' + arrAdverts[0].offer.rooms + ' комнатах';
 var checkinTime = 'Заезд после ' + arrAdverts[0].offer.checkin + ', выезд до ' + arrAdverts[0].offer.checkout;
 
-//создание диалоговой панели из шаблона
+// создание диалоговой панели из шаблона
 lodgeTemplate.querySelector('.lodge__title').textContent = arrAdverts[0].offer.title;
 lodgeTemplate.querySelector('.lodge__address').textContent = arrAdverts[0].offer.address;
 lodgeTemplate.querySelector('.lodge__price').innerHTML = arrAdverts[0].offer.price + ' &#x20bd;/ночь';
@@ -150,7 +150,7 @@ lodgeTemplate.querySelector('.lodge__description').textContent = arrAdverts[0].o
 document.getElementById('offer-dialog').replaceChild(lodgeTemplate, dialogPanel);
 document.querySelector('.dialog__title').firstChild.src = arrAdverts[0].author.avatar;
 
-var pinList = document.querySelectorAll('.pin');
+var pinList = document.querySelectorAll('.pin'); // нафиг нужен??
 var dialog = document.getElementById('offer-dialog');
 var dialogClose = document.querySelector('.dialog__close');
 
@@ -160,9 +160,12 @@ tokioMap.addEventListener('click', function () {  // баг/исправил н�
   if (activated !== null) {
     activated.classList.remove('pin--active');
   }
-   if (clickedPin.parentElement.classList.contains('pin')) {
-		 clickedPin.parentElement.classList.add('pin--active');
-	}
+  if (clickedPin.parentElement.classList.contains('pin')) {
+    clickedPin.parentElement.classList.add('pin--active');
+  }
+  if (clickedPin.classList.contains('pin')) {
+    clickedPin.classList.add('pin--active');
+  }
   dialog.style.display = 'block';
 });
 
@@ -171,12 +174,12 @@ dialogClose.addEventListener('click', function () {
   var activated = tokioMap.querySelector('.pin--active');
   activated.classList.remove('pin--active');
 });
-//test mobile ide and git
-//функция поиска обьекта в масиве arrAdverts по адресу аватарки выделенного маркера. тк аватарка единственное поле без модификаций
-//цикл сравновает author,avatar с полем src у картинки на маркере
+// test mobile ide and git
+// функция поиска обьекта в масиве arrAdverts по адресу аватарки выделенного маркера. тк аватарка единственное поле без модификаций
+// цикл сравновает author,avatar с полем src у картинки на маркере
 // возвращает номер объекта
-//сделать появление нужной диалоговой панели
-//для этого
+// сделать появление нужной диалоговой панели
+// для этого
 // сделать создание диалоговой панели функцией принимающей параметр - номер обьекта в массиве обьектов arrAdverts
 // и поставить эту функцию туда где сейчас создается диалоговая панель с параметром равным номеру обьекта соотв выделенному маркеру
 // если ничего не выделенно и где то там возникает null функция передает 0

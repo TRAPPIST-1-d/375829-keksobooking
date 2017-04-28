@@ -137,6 +137,7 @@ for (var a4 = 0; a4 < arrAdverts[0].offer.features.length; a4++) {
 var roomsAndGuests = 'Для ' + arrAdverts[0].offer.guests + ' гостей в ' + arrAdverts[0].offer.rooms + ' комнатах';
 var checkinTime = 'Заезд после ' + arrAdverts[0].offer.checkin + ', выезд до ' + arrAdverts[0].offer.checkout;
 
+//создание диалоговой панели из шаблона
 lodgeTemplate.querySelector('.lodge__title').textContent = arrAdverts[0].offer.title;
 lodgeTemplate.querySelector('.lodge__address').textContent = arrAdverts[0].offer.address;
 lodgeTemplate.querySelector('.lodge__price').innerHTML = arrAdverts[0].offer.price + ' &#x20bd;/ночь';
@@ -145,6 +146,7 @@ lodgeTemplate.querySelector('.lodge__rooms-and-guests').textContent = roomsAndGu
 lodgeTemplate.querySelector('.lodge__checkin-time').textContent = checkinTime;
 lodgeTemplate.querySelector('.lodge__features').appendChild(fragmentSpansWithFetures);
 lodgeTemplate.querySelector('.lodge__description').textContent = arrAdverts[0].offer.description;
+
 document.getElementById('offer-dialog').replaceChild(lodgeTemplate, dialogPanel);
 document.querySelector('.dialog__title').firstChild.src = arrAdverts[0].author.avatar;
 
@@ -152,30 +154,17 @@ var pinList = document.querySelectorAll('.pin');
 var dialog = document.getElementById('offer-dialog');
 var dialogClose = document.querySelector('.dialog__close');
 
-/* pinList.addEventListener('click', /* функция которая в Пинах ищет pin--active
-и если есть убирает. затем добавляет pin--active на тот по которому кликнули
-*/
-
-function showDialod() {
-  deactivatePin(pinList);
-
-}
-/*
-function deactivatePin() {
-  var activated = dialog.querySelector('.pin--active');
-  activated.classList.remove('pin--active');
-}
- */
-tokioMap.addEventListener('click', function () {  // баг! может добавлять pin--active к самой карте, не только к пинам
-  var thatPin = event.target;
+tokioMap.addEventListener('click', function () {  // баг/исправил но не тестил! может добавлять pin--active к самой карте, не только к пинам
+  var clickedPin = event.target;
   var activated = tokioMap.querySelector('.pin--active');
   if (activated !== null) {
     activated.classList.remove('pin--active');
   }
-  thatPin.parentElement.classList.add('pin--active');
+   if (clickedPin.parentElement.classList.contains('pin')) {
+		 clickedPin.parentElement.classList.add('pin--active');
+	}
   dialog.style.display = 'block';
 });
-
 
 dialogClose.addEventListener('click', function () {
   dialog.style.display = 'none'; // block покажет
@@ -183,3 +172,8 @@ dialogClose.addEventListener('click', function () {
   activated.classList.remove('pin--active');
 });
 //test mobile ide and git
+//функция поиска обьекта в масиве arrAdverts по адресу аватарки выделенного маркера. тк аватарка единственное поле без модификаций
+//
+//для этого
+// сделать создание диалоговой панели функцией принимающей параметр - номер обьекта в массиве обьектов arrAdverts
+// 

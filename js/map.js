@@ -134,23 +134,35 @@ for (var a4 = 0; a4 < arrAdverts[0].offer.features.length; a4++) {
   fragmentSpansWithFetures.appendChild(getSpanWithFeature(a4));
 }
 
-var roomsAndGuests = 'Для ' + arrAdverts[0].offer.guests + ' гостей в ' + arrAdverts[0].offer.rooms + ' комнатах';
-var checkinTime = 'Заезд после ' + arrAdverts[0].offer.checkin + ', выезд до ' + arrAdverts[0].offer.checkout;
-
 // создание диалоговой панели из шаблона
-lodgeTemplate.querySelector('.lodge__title').textContent = arrAdverts[0].offer.title;
-lodgeTemplate.querySelector('.lodge__address').textContent = arrAdverts[0].offer.address;
-lodgeTemplate.querySelector('.lodge__price').innerHTML = arrAdverts[0].offer.price + ' &#x20bd;/ночь';
-lodgeTemplate.querySelector('.lodge__type').textContent = getRusLodgeType(arrAdverts[0].offer.type);
-lodgeTemplate.querySelector('.lodge__rooms-and-guests').textContent = roomsAndGuests;
-lodgeTemplate.querySelector('.lodge__checkin-time').textContent = checkinTime;
-lodgeTemplate.querySelector('.lodge__features').appendChild(fragmentSpansWithFetures);
-lodgeTemplate.querySelector('.lodge__description').textContent = arrAdverts[0].offer.description;
+function createDialogPanel(number) {
+  var roomsAndGuests = 'Для ' + arrAdverts[number].offer.guests + ' гостей в ' + arrAdverts[number].offer.rooms + ' комнатах';
+  var checkinTime = 'Заезд после ' + arrAdverts[number].offer.checkin + ', выезд до ' + arrAdverts[number].offer.checkout;
 
-document.getElementById('offer-dialog').replaceChild(lodgeTemplate, dialogPanel);
-document.querySelector('.dialog__title').firstChild.src = arrAdverts[0].author.avatar;
+  lodgeTemplate.querySelector('.lodge__title').textContent = arrAdverts[number].offer.title;
+  lodgeTemplate.querySelector('.lodge__address').textContent = arrAdverts[number].offer.address;
+  lodgeTemplate.querySelector('.lodge__price').innerHTML = arrAdverts[number].offer.price + ' &#x20bd;/ночь';
+  lodgeTemplate.querySelector('.lodge__type').textContent = getRusLodgeType(arrAdverts[number].offer.type);
+  lodgeTemplate.querySelector('.lodge__rooms-and-guests').textContent = roomsAndGuests;
+  lodgeTemplate.querySelector('.lodge__checkin-time').textContent = checkinTime;
+  lodgeTemplate.querySelector('.lodge__features').appendChild(fragmentSpansWithFetures);
+  lodgeTemplate.querySelector('.lodge__description').textContent = arrAdverts[number].offer.description;
 
-var pinList = document.querySelectorAll('.pin'); // нафиг нужен??
+  document.querySelector('.dialog__title').firstChild.src = arrAdverts[number].author.avatar;
+  document.getElementById('offer-dialog').replaceChild(lodgeTemplate, dialogPanel);
+}
+
+function findObject(urlSting) {
+  for (var a5 = 0; a5 < arrAdverts.length; a5++) {
+    if (urlSting === arrAdverts[a5].author.avatar) {
+      return a5;
+    }
+  }
+  return 0;
+}
+
+createDialogPanel(0);
+// var pinList = document.querySelectorAll('.pin'); // нафиг нужен??
 var dialog = document.getElementById('offer-dialog');
 var dialogClose = document.querySelector('.dialog__close');
 
@@ -174,6 +186,7 @@ dialogClose.addEventListener('click', function () {
   var activated = tokioMap.querySelector('.pin--active');
   activated.classList.remove('pin--active');
 });
+
 // test mobile ide and git
 // функция поиска обьекта в масиве arrAdverts по адресу аватарки выделенного маркера. тк аватарка единственное поле без модификаций
 // цикл сравновает author,avatar с полем src у картинки на маркере
@@ -183,3 +196,9 @@ dialogClose.addEventListener('click', function () {
 // сделать создание диалоговой панели функцией принимающей параметр - номер обьекта в массиве обьектов arrAdverts
 // и поставить эту функцию туда где сейчас создается диалоговая панель с параметром равным номеру обьекта соотв выделенному маркеру
 // если ничего не выделенно и где то там возникает null функция передает 0
+/*
+ if (-1 < pos = 'www.yandex.ru'.indexOf('yandex.ru')) {
+ ...
+ }
+
+ */

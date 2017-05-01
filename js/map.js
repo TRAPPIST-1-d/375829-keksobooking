@@ -171,8 +171,8 @@ function createDialogPanel(number) {
   dialog.style.display = 'block';
 }
 
-function switchTargetedPin() {
-  var clickedPin = event.target;
+function switchTargetedPin(evt) {
+  var clickedPin = evt.target;
   removePinActive();
   if (clickedPin.parentElement.classList.contains('pin')) {
     clickedPin.parentElement.classList.add('pin--active');
@@ -207,7 +207,7 @@ tokioMap.addEventListener('click', switchTargetedPin);
 
 tokioMap.addEventListener('keydown', function (evt) {
   if (evt.keyCode === 13) {
-    switchTargetedPin();
+    switchTargetedPin(evt);
   }
 });
 

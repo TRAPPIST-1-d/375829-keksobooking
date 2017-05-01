@@ -94,11 +94,6 @@ function getRusLodgeType(lodgeType) {
   return lodgeType;
 }
 
-function getSpanWithFeature(orderInFeatureArr) {
-  var spanWithFeature = document.createElement('span');
-  spanWithFeature.setAttribute('class', 'feature__image feature__image--' + arrAdverts[0].offer.features[orderInFeatureArr]);
-  return spanWithFeature;
-}
 
 function getMarker(orderInArr) {
   var markerDOMElement = document.createElement('div');
@@ -149,6 +144,17 @@ function createDialogPanel(number) {
   var dialogPanel = document.getElementById('offer-dialog').querySelector('.dialog__panel');
   var roomsAndGuests = 'Для ' + arrAdverts[number].offer.guests + ' гостей в ' + arrAdverts[number].offer.rooms + ' комнатах';
   var checkinTime = 'Заезд после ' + arrAdverts[number].offer.checkin + ', выезд до ' + arrAdverts[number].offer.checkout;
+  var fragmentSpansWithFetures = document.createDocumentFragment();
+
+  function getSpanWithFeature(orderInFeatureArr) {
+    var spanWithFeature = document.createElement('span');
+    spanWithFeature.setAttribute('class', 'feature__image feature__image--' + arrAdverts[number].offer.features[orderInFeatureArr]);
+    return spanWithFeature;
+  }
+
+  for (var a4 = 0; a4 < arrAdverts[number].offer.features.length; a4++) {
+    fragmentSpansWithFetures.appendChild(getSpanWithFeature(a4));
+  }
 
   lodgeTemplate.querySelector('.lodge__title').textContent = arrAdverts[number].offer.title;
   lodgeTemplate.querySelector('.lodge__address').textContent = arrAdverts[number].offer.address;
@@ -166,7 +172,6 @@ function createDialogPanel(number) {
 
 var arrAdverts = [];
 var fragmentMarkers = document.createDocumentFragment();
-var fragmentSpansWithFetures = document.createDocumentFragment();
 var tokioMap = document.querySelector('.tokyo__pin-map');
 var dialog = document.getElementById('offer-dialog');
 var dialogCross = document.querySelector('.dialog__close');
@@ -180,9 +185,6 @@ for (var a3 = 0; a3 < arrAdverts.length; a3++) {
 }
 tokioMap.appendChild(fragmentMarkers);
 
-for (var a4 = 0; a4 < arrAdverts[0].offer.features.length; a4++) {
-  fragmentSpansWithFetures.appendChild(getSpanWithFeature(a4));
-}
 
 createDialogPanel(0);
 

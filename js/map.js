@@ -104,6 +104,7 @@ function getMarker(orderInArr) {
   var markerDOMElement = document.createElement('div');
   var location = 'left: ' + (arrAdverts[orderInArr].location.x - 28) + 'px; top: ' + (arrAdverts[orderInArr].location.y - 75) + 'px';
   markerDOMElement.setAttribute('class', 'pin');
+  markerDOMElement.setAttribute('tabindex', '0');
   markerDOMElement.setAttribute('style', location);
   var image = document.createElement('img');
   image.setAttribute('src', arrAdverts[orderInArr].author.avatar);
@@ -114,28 +115,38 @@ function getMarker(orderInArr) {
   return markerDOMElement;
 }
 
-var arrAdverts = [];
-var fragmentMarkers = document.createDocumentFragment();
-var lodgeTemplate = document.querySelector('#lodge-template').content;
-var fragmentSpansWithFetures = document.createDocumentFragment();
-var dialogPanel = document.getElementById('offer-dialog').querySelector('.dialog__panel');
-var tokioMap = document.querySelector('.tokyo__pin-map');
-
-for (var a2 = 0; arrAdverts.length < 8; a2++) {
-  arrAdverts.push(getAdvert());
+function removePinActive() {
+  var activated = tokioMap.querySelector('.pin--active');
+  if (activated !== null) {
+    activated.classList.remove('pin--active');
+  }
 }
 
-for (var a3 = 0; a3 < arrAdverts.length; a3++) {
-  fragmentMarkers.appendChild(getMarker(a3));
-}
-tokioMap.appendChild(fragmentMarkers);
-
-for (var a4 = 0; a4 < arrAdverts[0].offer.features.length; a4++) {
-  fragmentSpansWithFetures.appendChild(getSpanWithFeature(a4));
+function closeDialog() {
+  dialog.style.display = 'none'; // block покажет
+  removePinActive();
+  document.removeEventListener('keydown', escapeCloseDialog);
 }
 
-// создание диалоговой панели из шаблона
+function findObject(urlSting) {
+  for (var a5 = 0; a5 < arrAdverts.length; a5++) {
+    if (urlSting.indexOf(arrAdverts[a5].author.avatar) !== -1) {
+      return a5;
+    }
+  }
+  return 0;
+}
+
+function escapeCloseDialog(evt) {
+  if (evt.keyCode === 27) {
+    closeDialog();
+  }
+}
+
 function createDialogPanel(number) {
+  var lodgeTemplateClone = document.querySelector('#lodge-template').cloneNode(true);
+  var lodgeTemplate = lodgeTemplateClone.content;
+  var dialogPanel = document.getElementById('offer-dialog').querySelector('.dialog__panel');
   var roomsAndGuests = 'Для ' + arrAdverts[number].offer.guests + ' гостей в ' + arrAdverts[number].offer.rooms + ' комнатах';
   var checkinTime = 'Заезд после ' + arrAdverts[number].offer.checkin + ', выезд до ' + arrAdverts[number].offer.checkout;
 
@@ -150,55 +161,61 @@ function createDialogPanel(number) {
 
   document.querySelector('.dialog__title').firstChild.src = arrAdverts[number].author.avatar;
   document.getElementById('offer-dialog').replaceChild(lodgeTemplate, dialogPanel);
+  document.addEventListener('keydown', escapeCloseDialog);
 }
 
-function findObject(urlSting) {
-  for (var a5 = 0; a5 < arrAdverts.length; a5++) {
-    if (urlSting === arrAdverts[a5].author.avatar) {
-      return a5;
-    }
-  }
-  return 0;
+var arrAdverts = [];
+var fragmentMarkers = document.createDocumentFragment();
+var fragmentSpansWithFetures = document.createDocumentFragment();
+var tokioMap = document.querySelector('.tokyo__pin-map');
+var dialog = document.getElementById('offer-dialog');
+var dialogCross = document.querySelector('.dialog__close');
+
+for (var a2 = 0; arrAdverts.length < 8; a2++) {
+  arrAdverts.push(getAdvert());
+}
+
+for (var a3 = 0; a3 < arrAdverts.length; a3++) {
+  fragmentMarkers.appendChild(getMarker(a3));
+}
+tokioMap.appendChild(fragmentMarkers);
+
+for (var a4 = 0; a4 < arrAdverts[0].offer.features.length; a4++) {
+  fragmentSpansWithFetures.appendChild(getSpanWithFeature(a4));
 }
 
 createDialogPanel(0);
-// var pinList = document.querySelectorAll('.pin'); // нафиг нужен??
-var dialog = document.getElementById('offer-dialog');
-var dialogClose = document.querySelector('.dialog__close');
 
-tokioMap.addEventListener('click', function () {  // баг/исправил но не тестил! может добавлять pin--active к самой карте, не только к пинам
+tokioMap.addEventListener('click', function () {
   var clickedPin = event.target;
-  var activated = tokioMap.querySelector('.pin--active');
-  if (activated !== null) {
-    activated.classList.remove('pin--active');
-  }
+  removePinActive();
   if (clickedPin.parentElement.classList.contains('pin')) {
     clickedPin.parentElement.classList.add('pin--active');
+    createDialogPanel(findObject(clickedPin.src));
   }
   if (clickedPin.classList.contains('pin')) {
     clickedPin.classList.add('pin--active');
+    createDialogPanel(findObject(clickedPin.firstChild.src));
   }
   dialog.style.display = 'block';
 });
 
-dialogClose.addEventListener('click', function () {
-  dialog.style.display = 'none'; // block покажет
-  var activated = tokioMap.querySelector('.pin--active');
-  activated.classList.remove('pin--active');
+tokioMap.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    var clickedPin = event.target;
+    removePinActive();
+    if (clickedPin.parentElement.classList.contains('pin')) {
+      clickedPin.parentElement.classList.add('pin--active');
+      createDialogPanel(findObject(clickedPin.src));
+    }
+    if (clickedPin.classList.contains('pin')) {
+      clickedPin.classList.add('pin--active');
+      createDialogPanel(findObject(clickedPin.firstChild.src));
+    }
+    dialog.style.display = 'block';
+  }
 });
 
-// test mobile ide and git
-// функция поиска обьекта в масиве arrAdverts по адресу аватарки выделенного маркера. тк аватарка единственное поле без модификаций
-// цикл сравновает author,avatar с полем src у картинки на маркере
-// возвращает номер объекта
-// сделать появление нужной диалоговой панели
-// для этого
-// сделать создание диалоговой панели функцией принимающей параметр - номер обьекта в массиве обьектов arrAdverts
-// и поставить эту функцию туда где сейчас создается диалоговая панель с параметром равным номеру обьекта соотв выделенному маркеру
-// если ничего не выделенно и где то там возникает null функция передает 0
-/*
- if (-1 < pos = 'www.yandex.ru'.indexOf('yandex.ru')) {
- ...
- }
-
- */
+dialogCross.addEventListener('click', function () {
+  closeDialog();
+});

@@ -168,6 +168,21 @@ function createDialogPanel(number) {
   document.querySelector('.dialog__title').firstChild.src = arrAdverts[number].author.avatar;
   document.getElementById('offer-dialog').replaceChild(lodgeTemplate, dialogPanel);
   document.addEventListener('keydown', escapeCloseDialog);
+  dialog.style.display = 'block';
+}
+
+function switchTargetedPin() {
+  var clickedPin = event.target;
+  removePinActive();
+  if (clickedPin.parentElement.classList.contains('pin')) {
+    clickedPin.parentElement.classList.add('pin--active');
+    createDialogPanel(findObject(clickedPin.src));
+    return;
+  }
+  if (clickedPin.classList.contains('pin')) {
+    clickedPin.classList.add('pin--active');
+    createDialogPanel(findObject(clickedPin.firstChild.src));
+  }
 }
 
 var arrAdverts = [];
@@ -188,33 +203,11 @@ tokioMap.appendChild(fragmentMarkers);
 
 createDialogPanel(0);
 
-tokioMap.addEventListener('click', function () {
-  var clickedPin = event.target;
-  removePinActive();
-  if (clickedPin.parentElement.classList.contains('pin')) {
-    clickedPin.parentElement.classList.add('pin--active');
-    createDialogPanel(findObject(clickedPin.src));
-  }
-  if (clickedPin.classList.contains('pin')) {
-    clickedPin.classList.add('pin--active');
-    createDialogPanel(findObject(clickedPin.firstChild.src));
-  }
-  dialog.style.display = 'block';
-});
+tokioMap.addEventListener('click', switchTargetedPin);
 
 tokioMap.addEventListener('keydown', function (evt) {
   if (evt.keyCode === 13) {
-    var clickedPin = event.target;
-    removePinActive();
-    if (clickedPin.parentElement.classList.contains('pin')) {
-      clickedPin.parentElement.classList.add('pin--active');
-      createDialogPanel(findObject(clickedPin.src));
-    }
-    if (clickedPin.classList.contains('pin')) {
-      clickedPin.classList.add('pin--active');
-      createDialogPanel(findObject(clickedPin.firstChild.src));
-    }
-    dialog.style.display = 'block';
+    switchTargetedPin();
   }
 });
 

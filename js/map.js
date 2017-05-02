@@ -190,6 +190,15 @@ var fragmentMarkers = document.createDocumentFragment();
 var tokioMap = document.querySelector('.tokyo__pin-map');
 var dialog = document.getElementById('offer-dialog');
 var dialogCross = document.querySelector('.dialog__close');
+var inputForm = document.body.querySelector('.notice__form');
+var newTitle = document.getElementById('title');
+var newType = document.getElementById('type');
+var newPrice = document.getElementById('price');
+var newRoomNum = document.getElementById('room_number');
+var newCapacity = document.getElementById('capacity');
+var newTimeIn = document.getElementById('time');
+var newTimeOut = document.getElementById('timeout');
+var submitButton = inputForm.querySelector('.form__submit');
 
 for (var a2 = 0; arrAdverts.length < 8; a2++) {
   arrAdverts.push(getAdvert());
@@ -213,16 +222,6 @@ tokioMap.addEventListener('keydown', function (evt) {
 dialogCross.addEventListener('click', function () {
   closeDialog();
 });
-
-var inputForm = document.body.querySelector('.notice__form');
-var newTitle = document.getElementById('title');
-var newType = document.getElementById('type');
-var newPrice = document.getElementById('price');
-var newRoomNum = document.getElementById('room_number');
-var newCapacity = document.getElementById('capacity');
-var newTimeIn = document.getElementById('time');
-var newTimeOut = document.getElementById('timeout');
-var submitButton = inputForm.querySelector('.form__submit');
 
 inputForm.addEventListener('change', function (evt) {
   if (evt.target === newTimeIn) {

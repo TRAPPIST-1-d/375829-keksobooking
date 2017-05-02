@@ -228,62 +228,62 @@ inputForm.addEventListener('change', function (evt) {
     switch (newTimeIn.value) {
       case 'После 12':
         newTimeOut.value = 'Выезд до 12';
-        break;
+        return;
       case 'После 13':
         newTimeOut.value = 'Выезд до 13';
-        break;
+        return;
       case 'После 14':
         newTimeOut.value = 'Выезд до 14';
-        break;
+        return;
     }
   }
   if (evt.target === newTimeOut) {
     switch (newTimeOut.value) {
       case 'Выезд до 12':
         newTimeIn.value = 'После 12';
-        break;
+        return;
       case 'Выезд до 13':
         newTimeIn.value = 'После 13';
-        break;
+        return;
       case 'Выезд до 14':
         newTimeIn.value = 'После 14';
-        break;
+        return;
     }
   }
   if (evt.target === newType) {
     switch (newType.value) {
       case 'Лачуга':
         newPrice.min = 0;
-        break;
+        return;
       case 'Квартира':
         newPrice.min = 1000;
-        break;
+        return;
       case 'Дворец':
         newPrice.min = 10000;
-        break;
+        return;
     }
   }
   if (evt.target === newRoomNum) {
     switch (newRoomNum.value) {
       case '2 комнаты':
         newCapacity.value = 'для 3 гостей';
-        break;
+        return;
       case '100 комнат':
         newCapacity.value = 'для 3 гостей';
-        break;
+        return;
       case '1 комната':
         newCapacity.value = 'не для гостей';
-        break;
+        return;
     }
   }
   if (evt.target === newCapacity) {
     switch (newCapacity.value) {
       case 'не для гостей':
         newRoomNum.value = '1 комната';
-        break;
+        return;
       case 'для 3 гостей':
         newRoomNum.value = '2 комнаты';
-        break;
+        return;
     }
   }
 });

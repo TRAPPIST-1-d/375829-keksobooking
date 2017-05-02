@@ -200,7 +200,6 @@ for (var a3 = 0; a3 < arrAdverts.length; a3++) {
 }
 tokioMap.appendChild(fragmentMarkers);
 
-
 createDialogPanel(0);
 
 tokioMap.addEventListener('click', switchTargetedPin);
@@ -214,3 +213,82 @@ tokioMap.addEventListener('keydown', function (evt) {
 dialogCross.addEventListener('click', function () {
   closeDialog();
 });
+
+var inputForm = document.body.querySelector('.notice__form');
+var newTitle = document.getElementById('title');
+var newType = document.getElementById('type');
+var newPrice = document.getElementById('price');
+var newRoomNum = document.getElementById('room_number');
+var newCapacity = document.getElementById('capacity');
+var newTimeIn = document.getElementById('time');
+var newTimeOut = document.getElementById('timeout');
+var submitButton = inputForm.querySelector('.form__submit');
+
+inputForm.addEventListener('change', function (evt) {
+  if (evt.target === newTimeIn) {
+    switch (newTimeIn.value) {
+      case 'После 12':
+        newTimeOut.value = 'Выезд до 12';
+        break;
+      case 'После 13':
+        newTimeOut.value = 'Выезд до 13';
+        break;
+      case 'После 14':
+        newTimeOut.value = 'Выезд до 14';
+        break;
+    }
+  }
+  if (evt.target === newTimeOut) {
+    switch (newTimeOut.value) {
+      case 'Выезд до 12':
+        newTimeIn.value = 'После 12';
+        break;
+      case 'Выезд до 13':
+        newTimeIn.value = 'После 13';
+        break;
+      case 'Выезд до 14':
+        newTimeIn.value = 'После 14';
+        break;
+    }
+  }
+  if (evt.target === newType) {
+    switch (newType.value) {
+      case 'Лачуга':
+        newPrice.min = 0;
+        break;
+      case 'Квартира':
+        newPrice.min = 1000;
+        break;
+      case 'Дворец':
+        newPrice.min = 10000;
+        break;
+    }
+  }
+  if (evt.target === newRoomNum) {
+    switch (newRoomNum.value) {
+      case '2 комнаты':
+        newCapacity.value = 'для 3 гостей';
+        break;
+      case '100 комнат':
+        newCapacity.value = 'для 3 гостей';
+        break;
+      case '1 комната':
+        newCapacity.value = 'не для гостей';
+        break;
+    }
+  }
+});
+
+submitButton.addEventListener('click', function () {
+  if (newTitle.checkValidity() !== true) {
+    newTitle.style.border = '2px solid red';
+  } else {
+    newTitle.style.border = '';
+  }
+  if (newPrice.checkValidity() !== true) {
+    newPrice.style.border = '2px solid red';
+  } else {
+    newPrice.style.border = '';
+  }
+});
+

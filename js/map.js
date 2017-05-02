@@ -288,7 +288,8 @@ inputForm.addEventListener('change', function (evt) {
   }
 });
 
-inputForm.addEventListener('submit', function (evt) {
+submitButton.addEventListener('click', function (evt) {
+  evt.preventDefault();
   if (newTitle.checkValidity() !== true) {
     newTitle.style.border = '2px solid red';
   } else {
@@ -299,5 +300,11 @@ inputForm.addEventListener('submit', function (evt) {
   } else {
     newPrice.style.border = '';
   }
+  if (newTimeIn.value !== newTimeOut.value) {
+    newTimeIn.style.border = '2px solid red';
+    newTimeOut.style.border = '2px solid red';
+  } else {
+    newTimeIn.style.border = '';
+    newTimeOut.style.border = '';
+  }
 });
-

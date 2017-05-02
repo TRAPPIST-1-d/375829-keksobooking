@@ -276,6 +276,16 @@ inputForm.addEventListener('change', function (evt) {
         break;
     }
   }
+  if (evt.target === newCapacity) {
+    switch (newCapacity.value) {
+      case 'не для гостей':
+        newRoomNum.value = '1 комната';
+        break;
+      case 'для 3 гостей':
+        newRoomNum.value = '2 комнаты';
+        break;
+    }
+  }
 });
 
 submitButton.addEventListener('click', function () {

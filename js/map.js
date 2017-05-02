@@ -226,69 +226,69 @@ dialogCross.addEventListener('click', function () {
 inputForm.addEventListener('change', function (evt) {
   if (evt.target === newTimeIn) {
     switch (newTimeIn.value) {
-      case 'После 12':
-        newTimeOut.value = 'Выезд до 12';
+      case '1':
+        newTimeOut.value = '1';
         return;
-      case 'После 13':
-        newTimeOut.value = 'Выезд до 13';
+      case '2':
+        newTimeOut.value = '2';
         return;
-      case 'После 14':
-        newTimeOut.value = 'Выезд до 14';
+      case '3':
+        newTimeOut.value = '3';
         return;
     }
   }
   if (evt.target === newTimeOut) {
     switch (newTimeOut.value) {
-      case 'Выезд до 12':
-        newTimeIn.value = 'После 12';
+      case '1':
+        newTimeIn.value = '1';
         return;
-      case 'Выезд до 13':
-        newTimeIn.value = 'После 13';
+      case '2':
+        newTimeIn.value = '2';
         return;
-      case 'Выезд до 14':
-        newTimeIn.value = 'После 14';
+      case '3':
+        newTimeIn.value = '3';
         return;
     }
   }
   if (evt.target === newType) {
     switch (newType.value) {
-      case 'Лачуга':
+      case '2':
         newPrice.min = 0;
         return;
-      case 'Квартира':
+      case '1':
         newPrice.min = 1000;
         return;
-      case 'Дворец':
+      case '3':
         newPrice.min = 10000;
         return;
     }
   }
   if (evt.target === newRoomNum) {
     switch (newRoomNum.value) {
-      case '2 комнаты':
-        newCapacity.value = 'для 3 гостей';
+      case '2':
+        newCapacity.value = '1';
         return;
-      case '100 комнат':
-        newCapacity.value = 'для 3 гостей';
+      case '3':
+        newCapacity.value = '1';
         return;
-      case '1 комната':
-        newCapacity.value = 'не для гостей';
+      case '1':
+        newCapacity.value = '2';
         return;
     }
   }
   if (evt.target === newCapacity) {
     switch (newCapacity.value) {
-      case 'не для гостей':
-        newRoomNum.value = '1 комната';
+      case '2':
+        newRoomNum.value = '1';
         return;
-      case 'для 3 гостей':
-        newRoomNum.value = '2 комнаты';
+      case '1':
+        newRoomNum.value = '2';
         return;
     }
   }
 });
 
-submitButton.addEventListener('submit', function () {
+inputForm.addEventListener('submit', function (evt) {
   if (newTitle.checkValidity() !== true) {
     newTitle.style.border = '2px solid red';
   } else {

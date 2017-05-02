@@ -225,30 +225,10 @@ dialogCross.addEventListener('click', function () {
 
 inputForm.addEventListener('change', function (evt) {
   if (evt.target === newTimeIn) {
-    switch (newTimeIn.value) {
-      case '1':
-        newTimeOut.value = '1';
-        return;
-      case '2':
-        newTimeOut.value = '2';
-        return;
-      case '3':
-        newTimeOut.value = '3';
-        return;
-    }
+    newTimeOut.value = newTimeIn.value;
   }
   if (evt.target === newTimeOut) {
-    switch (newTimeOut.value) {
-      case '1':
-        newTimeIn.value = '1';
-        return;
-      case '2':
-        newTimeIn.value = '2';
-        return;
-      case '3':
-        newTimeIn.value = '3';
-        return;
-    }
+    newTimeIn.value = newTimeOut.value;
   }
   if (evt.target === newType) {
     switch (newType.value) {

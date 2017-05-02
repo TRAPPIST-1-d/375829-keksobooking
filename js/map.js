@@ -288,7 +288,7 @@ inputForm.addEventListener('change', function (evt) {
   }
 });
 
-submitButton.addEventListener('click', function () {
+submitButton.addEventListener('submit', function () {
   if (newTitle.checkValidity() !== true) {
     newTitle.style.border = '2px solid red';
   } else {

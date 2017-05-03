@@ -85,6 +85,7 @@
       }
     };
   }
+
   for (var a2 = 0; window.arrAdverts.length < 8; a2++) {
     window.arrAdverts.push(getAdvert(window.arrAdverts.length));
   }

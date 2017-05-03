@@ -63,6 +63,7 @@ window.card = (function () {
     });
     dialog.style.display = 'block';
   }
+
   return {
     createDialogPanel: createDialogPanel,
     closeDialog: closeDialog

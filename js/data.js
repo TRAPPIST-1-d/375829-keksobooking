@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.dat = (function () {
 
   var OFFER_TITLE_LIST = [
     'Большая уютная квартира',
@@ -31,8 +31,6 @@
     'conditioner'
   ];
 
-  window.arrAdverts = [];
-
   function getRandomMinMax(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -59,15 +57,15 @@
     return arrFeatures;
   }
 
-  function getAdvert() {
+  var getAdvert = function (arrAdverts) {
     var randomLocationX = getRandomMinMax(300, 900);
     var randomLocationY = getRandomMinMax(100, 500);
     return {
       author: {
-        avatar: 'img/avatars/user0' + (window.arrAdverts.length + 1) + '.png'
+        avatar: 'img/avatars/user0' + (arrAdverts.length + 1) + '.png'
       },
       offer: {
-        title: OFFER_TITLE_LIST[window.arrAdverts.length],
+        title: OFFER_TITLE_LIST[arrAdverts.length],
         address: randomLocationX + ', ' + randomLocationY,
         price: getRandomMinMax(1000, 1000000),
         type: OFFER_TYPE_LIST[getRandomMinMax(0, (OFFER_TYPE_LIST.length - 1))],
@@ -84,10 +82,10 @@
         y: randomLocationY
       }
     };
-  }
+  };
 
-  for (var a2 = 0; window.arrAdverts.length < 8; a2++) {
-    window.arrAdverts.push(getAdvert(window.arrAdverts.length));
-  }
+  return {
+    getAdvert: getAdvert
+  };
 
 })();

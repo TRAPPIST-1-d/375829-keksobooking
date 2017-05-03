@@ -3,7 +3,7 @@
 window.pin = (function () {
 
   var tokioMap = document.querySelector('.tokyo__pin-map');
-  var fragmentMarkers = document.createDocumentFragment();
+//  var fragmentMarkers = document.createDocumentFragment();
 
   function getMarker(orderInArr) {
     var markerDOMElement = document.createElement('div');
@@ -50,10 +50,10 @@ window.pin = (function () {
     }
   }
 
-  for (var a3 = 0; a3 < window.arrAdverts.length; a3++) {
-    fragmentMarkers.appendChild(getMarker(a3));
-  }
-  tokioMap.appendChild(fragmentMarkers);
+ // for (var a3 = 0; a3 < window.arrAdverts.length; a3++) {
+ //   fragmentMarkers.appendChild(getMarker(a3));
+ // }
+ // tokioMap.appendChild(fragmentMarkers);
 
   tokioMap.addEventListener('click', switchTargetedPin);
 
@@ -64,7 +64,8 @@ window.pin = (function () {
   });
 
   return {
-    removePinActive: removePinActive
+    removePinActive: removePinActive,
+    getMarker: getMarker
   };
 
 })();

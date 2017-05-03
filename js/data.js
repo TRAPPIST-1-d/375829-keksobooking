@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
-
-var  moduleDat = (function () {
+var moduleDat = (function () {
 
   var OFFER_TITLE_LIST = [
     'Большая уютная квартира',

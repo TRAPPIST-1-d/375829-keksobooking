@@ -1,3 +1,4 @@
+/* eslint-disable no-undef,no-unused-vars */
 'use strict';
 
 var moduleMap = (function (module1, module2) {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars,no-undef */
 'use strict';
 
 var modulePin = (function (module, module2) {

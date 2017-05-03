@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars,no-undef */
 'use strict';
 
 var moduleCard = (function (module1) {

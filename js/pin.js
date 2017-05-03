@@ -1,18 +1,20 @@
 'use strict';
 
-window.pin = (function () {
+var modulePin = (function (module, module2) {
 
+  var dialogCross = document.querySelector('.dialog__close');
+  var fragmentMarkers = document.createDocumentFragment();
   var tokioMap = document.querySelector('.tokyo__pin-map');
-//  var fragmentMarkers = document.createDocumentFragment();
+  var dialog = document.getElementById('offer-dialog');
 
   function getMarker(orderInArr) {
     var markerDOMElement = document.createElement('div');
-    var location = 'left: ' + (window.arrAdverts[orderInArr].location.x - 28) + 'px; top: ' + (window.arrAdverts[orderInArr].location.y - 75) + 'px';
+    var location = 'left: ' + (module.adverts[orderInArr].location.x - 28) + 'px; top: ' + (module.adverts[orderInArr].location.y - 75) + 'px';
     markerDOMElement.setAttribute('class', 'pin');
     markerDOMElement.setAttribute('tabindex', '0');
     markerDOMElement.setAttribute('style', location);
     var image = document.createElement('img');
-    image.setAttribute('src', window.arrAdverts[orderInArr].author.avatar);
+    image.setAttribute('src', module.adverts[orderInArr].author.avatar);
     image.setAttribute('class', 'rounded');
     image.setAttribute('width', '40');
     image.setAttribute('height', '40');
@@ -21,12 +23,23 @@ window.pin = (function () {
   }
 
   function findObject(urlSting) {
-    for (var a5 = 0; a5 < window.arrAdverts.length; a5++) {
-      if (urlSting.indexOf(window.arrAdverts[a5].author.avatar) !== -1) {
+    for (var a5 = 0; a5 < module.adverts.length; a5++) {
+      if (urlSting.indexOf(module.adverts[a5].author.avatar) !== -1) {
         return a5;
       }
     }
     return 0;
+  }
+
+  function escapeCloseDialog(evt) {
+    if (evt.keyCode === 27) {
+      closeDialog();
+    }
+  }
+
+  function closeDialog() {
+    dialog.style.display = 'none';
+    removePinActive();
   }
 
   function removePinActive() {
@@ -41,19 +54,25 @@ window.pin = (function () {
     removePinActive();
     if (clickedPin.parentElement.classList.contains('pin')) {
       clickedPin.parentElement.classList.add('pin--active');
-      window.card.createDialogPanel(findObject(clickedPin.src));
+      module2.createDialogPanel(findObject(clickedPin.src));
       return;
     }
     if (clickedPin.classList.contains('pin')) {
       clickedPin.classList.add('pin--active');
-      window.card.createDialogPanel(findObject(clickedPin.firstChild.src));
+      module2.createDialogPanel(findObject(clickedPin.firstChild.src));
     }
   }
 
- // for (var a3 = 0; a3 < window.arrAdverts.length; a3++) {
- //   fragmentMarkers.appendChild(getMarker(a3));
- // }
- // tokioMap.appendChild(fragmentMarkers);
+  for (var a3 = 0; a3 < module.adverts.length; a3++) {
+    fragmentMarkers.appendChild(getMarker(a3));
+  }
+  tokioMap.appendChild(fragmentMarkers);
+
+  document.addEventListener('keydown', escapeCloseDialog);
+
+  dialogCross.addEventListener('click', function () {
+    closeDialog();
+  });
 
   tokioMap.addEventListener('click', switchTargetedPin);
 
@@ -65,7 +84,8 @@ window.pin = (function () {
 
   return {
     removePinActive: removePinActive,
-    getMarker: getMarker
+    getMarker: getMarker,
+    closeDialog: closeDialog
   };
 
-})();
+})(moduleDat, moduleCard);

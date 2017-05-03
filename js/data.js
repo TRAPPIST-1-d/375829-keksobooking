@@ -1,6 +1,7 @@
 'use strict';
 
-window.dat = (function () {
+
+var  moduleDat = (function () {
 
   var OFFER_TITLE_LIST = [
     'Большая уютная квартира',
@@ -30,6 +31,7 @@ window.dat = (function () {
     'elevator',
     'conditioner'
   ];
+  var arrAdverts = [];
 
   function getRandomMinMax(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -57,7 +59,7 @@ window.dat = (function () {
     return arrFeatures;
   }
 
-  var getAdvert = function (arrAdverts) {
+  var getAdvert = function () {
     var randomLocationX = getRandomMinMax(300, 900);
     var randomLocationY = getRandomMinMax(100, 500);
     return {
@@ -84,8 +86,12 @@ window.dat = (function () {
     };
   };
 
+  for (var a2 = 0; arrAdverts.length < 8; a2++) {
+    arrAdverts.push(getAdvert(arrAdverts));
+  }
+
   return {
-    getAdvert: getAdvert
+    adverts: arrAdverts
   };
 
 })();
